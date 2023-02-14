@@ -1,12 +1,14 @@
 fl=open('new.txt','r+')
 
 print(fl.read())
+
 #print(fl.readline())
 #print(fl.readlines())
 #print(fl.readlines()[4])
 
-fl.write("\nGood Morning")
+#fl.write("\nGood Morning")
 
+print(fl.tell())
 """if fl.readable():
     print("Yes...")
     print(fl.read())
