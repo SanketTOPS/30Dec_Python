@@ -1,0 +1,1 @@
+open('newfile2.txt','w')
