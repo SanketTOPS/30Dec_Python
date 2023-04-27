@@ -14,7 +14,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style="background-color: darkgoldenrod;">
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
@@ -50,10 +50,24 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                {% if user is none %}
                 <button class="btn btn-outline-warning mx-2" data-bs-toggle="modal"
                     data-bs-target="#loginModel">Login</button>
-                <button class="btn btn-outline-secondary" data-bs-toggle="modal"
+                <button class="btn btn-outline-secondary " data-bs-toggle="modal"
                     data-bs-target="#signupModel">Signup</button>
+                {% else %}
+                <!-- <button class="btn btn-outline-danger mx-2">Logout</button> -->
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle mx-2" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{user}}
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/userlogout">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -182,12 +196,93 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    
+
                 </div>
             </div>
         </div>
     </div>
     <!-- Signup Model End  -->
+
+    <!-- Update Profile Form Start -->
+    <div class="container my-5">
+        <form method="post" class="row g-3 needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">First name</label>
+                <input type="text" name="firstname" class="form-control" value="{{cuser.firstname}}" id="validationCustom01" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom02" class="form-label">Last name</label>
+                <input type="text" name="lastname" class="form-control" value="{{cuser.lastname}}" id="validationCustom02" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustomUsername" class="form-label">Username</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <input type="text" name="username" value="{{cuser.username}}" class="form-control" id="validationCustomUsername"
+                        aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Password</label>
+                <input type="password" name="password" value="{{cuser.password}}" class="form-control" id="validationCustom01" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom03" class="form-label">City</label>
+                <input type="text" name="city" value="{{cuser.city}}" class="form-control" id="validationCustom03" required>
+                <div class="invalid-feedback">
+                    Please provide a valid city.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom04" class="form-label">State</label>
+                <select class="form-select" name="state" id="validationCustom04" required>
+                    <option selected disabled value="">{{cuser.state}}</option>
+                    <option>Gujarat</option>
+                    <option>Goa</option>
+                    <option>Delhi</option>
+                    <option>Punjab</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid state.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationCustom05" class="form-label">Mobile</label>
+                <input type="number" name="mobile" value="{{cuser.mobile}}" class="form-control" id="validationCustom05" required>
+                <div class="invalid-feedback">
+                    Please provide a valid zip.
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                        Agree to terms and conditions
+                    </label>
+                    <div class="invalid-feedback">
+                        You must agree before submitting.
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+    <!-- Update Profile Form End -->
 </body>
 
 </html>
